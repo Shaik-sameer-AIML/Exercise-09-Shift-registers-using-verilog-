@@ -41,39 +41,95 @@ FIGURE-04
 A Parallel in Parallel out (PIPO) shift register is used as a temporary storage device and like SISO Shift register it acts as a delay element.
 
 ### Procedure
-/* write all the steps invloved */
+1.Use quartus software and import required modules.
+
+2.Assign inputs and outputs for shift registers.
+
+3.Assign logic for input to give output at positive edge.
+
+4.Perform opertaions and produce rtl circuit.
+
+5.end module
 
 
 
 ### PROGRAM 
+~~~
 /*
 Program for  Implementation-of Shift-registers-using-verilog-
-Developed by: 
-RegisterNumber:  
+Developed by: shaik sameer
+RegisterNumber: 212221240051 
 */
+~~~
+## Serial Input Parallel Output (SIPO):
+~~~
+module SIPO(SI,Clk,PO);
+input SI,Clk;
+output[0:7]PO;
+reg[0:7]temp;
+always@(posedge Clk)
+begin
+temp = {temp[0:6],SI};
+end
+assign PO = temp;
+endmodule
+~~~
+## Parallel Input Serial Output (PISO):
+~~~
+module PISO(Clk, Parallel_In,load, Serial_Out);
+input Clk,load;
+input [3:0]Parallel_In;
+output reg Serial_Out;
+reg [3:0]tmp;
+always @(posedge Clk)
+begin
+if(load)
+tmp<=Parallel_In;
+else
+begin
+Serial_Out<=tmp[3];
+tmp<={tmp[2:0],1'b0};
+end
+end
+endmodule
+~~~
+## Parallel Input Parallel Output (PIPO):
+~~~
+module PIPO(PI,Clk,PO);
+input Clk;
+input[3:0]PI;
+output reg[3:0]PO;
+always@(posedge Clk)
+begin
+PO = PI;
+end 
+endmodule
+~~~
+
+## Output:
+### Serial Input Parallel Output (SIPO):
+### RTL LOGIC REGISTERS:
+![image](https://user-images.githubusercontent.com/93427186/172883050-4538b108-5149-4114-af68-f41a3683a44c.png)
+
+### Timing Diagram for Shift Registers:
+![image](https://user-images.githubusercontent.com/93427186/172883133-e78c09f1-8f51-4319-bf99-f71adfdb5e8a.png)
 
 
+### Parallel Input Serial Output (PISO):
+### RTL Registers:
+![image](https://user-images.githubusercontent.com/93427186/172883265-9d697350-5ebe-4b29-99b9-8b302996a034.png)
+
+### Timing Diagram for Shift Registers:
+![image](https://user-images.githubusercontent.com/93427186/172883376-bcf5ccda-c9ba-45e3-95ce-5134c290fced.png)
+
+### Parallel Input Parallel Output (PIPO):
+### RTL Registers:
+![image](https://user-images.githubusercontent.com/93427186/172883517-595acb23-8f55-4a08-97f3-d341d74452fc.png)
+
+### Timing Diagram for Shift Registers:
+
+![image](https://user-images.githubusercontent.com/93427186/172883595-637c8b1b-3cbb-4318-ae81-85eaa3cea4af.png)
 
 
-
-
-### RTL LOGIC  REGISTERS   
-
-
-
-
-
-
-
-
-
-### TIMING DIGRAMS FOR SHIFT REGISTERS
-
-
-
-
-
-
-
-
-### RESULTS 
+### RESULTS :
+Thus, PISO , PIPO, SIPO are implemented using verilog and their functionality using their functional tables is validated.
